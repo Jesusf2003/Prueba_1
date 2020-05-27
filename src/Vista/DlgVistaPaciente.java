@@ -65,6 +65,11 @@ public class DlgVistaPaciente extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPacienteMouseClicked(evt);
+            }
+        });
         srcPaciente.setViewportView(tblPaciente);
 
         btnNuevoPaciente.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
@@ -82,12 +87,12 @@ public class DlgVistaPaciente extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(srcPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(srcPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNuevoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,8 +102,8 @@ public class DlgVistaPaciente extends javax.swing.JDialog {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevoPaciente))
                 .addGap(18, 18, 18)
-                .addComponent(srcPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(srcPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,6 +114,22 @@ public class DlgVistaPaciente extends javax.swing.JDialog {
         dlgnuevopaciente.setVisible(true);
         cargarListaPAcientes();
     }//GEN-LAST:event_btnNuevoPacienteActionPerformed
+
+    private void tblPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPacienteMouseClicked
+        int filaseleccionada = tblPaciente.getSelectedRow();
+        
+        Dlgeditarpaciente dlgeditarpaciente = new Dlgeditarpaciente(parentFrame, true);
+        dlgeditarpaciente.idPaciente = tblPaciente.getModel().getValueAt(filaseleccionada, 0).toString();
+        dlgeditarpaciente.nombrePaciente = tblPaciente.getModel().getValueAt(filaseleccionada, 1).toString();
+        dlgeditarpaciente.apellidoPaciente = tblPaciente.getModel().getValueAt(filaseleccionada, 2).toString();
+        dlgeditarpaciente.direccionPaciente = tblPaciente.getModel().getValueAt(filaseleccionada, 3).toString();
+        dlgeditarpaciente.fecha_nacPaciente = tblPaciente.getModel().getValueAt(filaseleccionada, 4).toString();
+        dlgeditarpaciente.dniPaciente = tblPaciente.getModel().getValueAt(filaseleccionada, 5).toString();
+        dlgeditarpaciente.celularPaciente = tblPaciente.getModel().getValueAt(filaseleccionada, 6).toString();
+        
+        dlgeditarpaciente.setVisible(true);
+        cargarListaPAcientes();
+    }//GEN-LAST:event_tblPacienteMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNuevoPaciente;

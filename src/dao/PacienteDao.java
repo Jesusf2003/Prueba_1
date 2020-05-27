@@ -22,7 +22,29 @@ public class PacienteDao extends Conexion {
             ps.setString(6, paciente.getCelular());
             //Transacciones
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            //Ejecuta el mansaje con el error
+            System.err.println("Ocurrió un error alagregar paciente: "+ e.getMessage());
+        }finally{
+            this.desconectar();
+        }
+    }
+    //Método para actualizar pacientes
+    public void actualizarPaciente(PacienteModelo paciente) throws SQLException{
+        try {
+            this.conexion();
+            String sql = "update paciente set nombre=?, apellido=?, direccion=?, fecha_nac = str_to_date(?, '%d/%m/%Y'), dni=?, celular=? where ID=?";
+            PreparedStatement ps = this.getCn().prepareStatement(sql);
+            ps.setString(1, paciente.getNombre());
+            ps.setString(2, paciente.getApellido());
+            ps.setString(3, paciente.getDireccion());
+            ps.setString(4, paciente.getFecha_nac());
+            ps.setString(5, paciente.getDni());
+            ps.setString(6, paciente.getCelular());
+            ps.setInt(7, paciente.getId());
+            //Transacciones
+            ps.executeUpdate();
+        } catch (SQLException e) {
             //Ejecuta el mansaje con el error
             System.err.println("Ocurrió un error alagregar paciente: "+ e.getMessage());
         }finally{
@@ -35,7 +57,7 @@ public class PacienteDao extends Conexion {
         ResultSet rs;
         ArrayList<PacienteModelo> lista;
         try {
-            String sql = "SELECT * FROM PACIENTE";
+            String sql = "select id, nombre, apellido, direccion, date_format(fecha_nac, '%d/%m/%Y') as fecha_nac, dni, celular from paciente";
             PreparedStatement ps = this.getCn().prepareStatement(sql);
             //Consultas que modifican datos en la database y se guarda en "rs"
             rs = ps.executeQuery();

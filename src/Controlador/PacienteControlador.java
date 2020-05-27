@@ -15,7 +15,17 @@ public class PacienteControlador {
         try {
             dao.agregarPaciente(new PacienteModelo(0, nombre, apellido, direc, fechaNac, dni, celular));
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error");
+            return false;
+        }
+    }
+    
+    public boolean actualizarPaciente(int id, String nombre, String apellido, String direc, String fechaNac, String dni, String celular){
+        try {
+            dao.actualizarPaciente(new PacienteModelo(id, nombre, apellido, direc, fechaNac, dni, celular));
+            return true;
+        } catch (SQLException e) {
             System.err.println("Ocurrió un error");
             return false;
         }
