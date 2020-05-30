@@ -69,6 +69,7 @@ public class Dlgeditarpaciente extends javax.swing.JDialog {
         lblFecha_nac = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtid = new javax.swing.JTextField();
+        btnInactivar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -145,6 +146,14 @@ public class Dlgeditarpaciente extends javax.swing.JDialog {
             }
         });
 
+        btnInactivar.setBackground(new java.awt.Color(255, 0, 51));
+        btnInactivar.setText("Inactivar");
+        btnInactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInactivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,7 +194,9 @@ public class Dlgeditarpaciente extends javax.swing.JDialog {
                             .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(132, Short.MAX_VALUE)
+                .addComponent(btnInactivar)
+                .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
                 .addGap(35, 35, 35)
                 .addComponent(btnactualizar)
@@ -226,7 +237,8 @@ public class Dlgeditarpaciente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnactualizar))
+                    .addComponent(btnactualizar)
+                    .addComponent(btnInactivar))
                 .addGap(17, 17, 17))
         );
 
@@ -282,8 +294,21 @@ public class Dlgeditarpaciente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtCelularKeyTyped
 
+    private void btnInactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInactivarActionPerformed
+        int id = Integer.parseInt(txtid.getText());
+        boolean esCorrecto = controlador.inactivarPaciente(id);
+        if(esCorrecto){
+            JOptionPane.showMessageDialog(null, "Se inactivó el paciente correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al editar paciente", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnInactivarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnInactivar;
     private javax.swing.JButton btnactualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
