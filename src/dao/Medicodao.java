@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class Medicodao extends Conexion{
     
-    //Metodo para agregar MEdicos
+    //Metodo para agregar Medicos
     public void agregarMedico(MedicoModelo medico) throws SQLException{
         try {
         this.conexion();
-        String sql = "insert into medico values\n"+"(null, ?, ?, ?, str_to_date(?, '%d/%m/%Y'), ?, ?, ?, ?)";
+        String sql = "insert into medico values(null, ?, ?, ?, str_to_date(?, '%d/%m/%Y'), ?, ?, ?, ?)";
         PreparedStatement ps = this.getCn().prepareStatement(sql);
         ps.setString(1, medico.getNombre_med());
         ps.setString(2, medico.getApellido_med());
@@ -25,7 +25,30 @@ public class Medicodao extends Conexion{
         ps.setString(7, medico.getEspecialidad());
         ps.setString(8, medico.getSexo_med());
         ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error al agregar paciente: "+ e.getMessage());
+        }finally{
+            this.desconectar();
+        }
+    }
+    
+    //Metodo para actualizar lista
+    public void actualizarMedico(MedicoModelo medico) throws SQLException{
+        try {
+        this.conexion();
+        String sql = "UPDATE MEDICO SET NOMBRE=?, APELLIDO=?, DIRECCION=?, FECHA_NAC=str_to_date(?, '%d/%m/%Y'), DNI=?, ESPECIALIDAD=?, SEXO=? WHERE ID=?";
+        PreparedStatement ps = this.getCn().prepareStatement(sql);
+        ps.setString(1, medico.getNombre_med());
+        ps.setString(2, medico.getApellido_med());
+        ps.setString(3, medico.getDireccion_med());
+        ps.setString(4, medico.getFecha_nac_med());
+        ps.setString(5, medico.getDni_med());
+        ps.setString(6, medico.getCelular_med());
+        ps.setString(7, medico.getEspecialidad());
+        ps.setString(8, medico.getSexo_med());
+        ps.setInt(7, medico.getId());
+        ps.executeUpdate();
+        } catch (SQLException e) {
             System.err.println("Ocurrió un error al agregar paciente: "+ e.getMessage());
         }finally{
             this.desconectar();

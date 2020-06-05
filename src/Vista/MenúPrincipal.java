@@ -30,6 +30,7 @@ public class MenúPrincipal extends javax.swing.JFrame {
 
         btnVerPacientes = new javax.swing.JButton();
         btnVerMedico = new javax.swing.JButton();
+        btnVerConsultas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +48,13 @@ public class MenúPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnVerConsultas.setText("Ver Consultas");
+        btnVerConsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerConsultasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -55,7 +63,8 @@ public class MenúPrincipal extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnVerPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                    .addComponent(btnVerMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVerMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVerConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -65,7 +74,9 @@ public class MenúPrincipal extends javax.swing.JFrame {
                 .addComponent(btnVerPacientes)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerMedico)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnVerConsultas)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,7 +92,12 @@ public class MenúPrincipal extends javax.swing.JFrame {
         dlgvistamedico.setVisible(true);
     }//GEN-LAST:event_btnVerMedicoActionPerformed
 
-    /**
+    private void btnVerConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerConsultasActionPerformed
+        DlgVistaConsulta dlgvistaconsulta = new DlgVistaConsulta(this, true);
+        dlgvistaconsulta.setVisible(true);
+    }//GEN-LAST:event_btnVerConsultasActionPerformed
+
+       /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -92,19 +108,19 @@ public class MenúPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenúPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgVistaConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenúPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgVistaConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenúPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgVistaConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenúPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgVistaConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -112,11 +128,12 @@ public class MenúPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenúPrincipal().setVisible(true);
+                    }
+                });
             }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVerConsultas;
     private javax.swing.JButton btnVerMedico;
     private javax.swing.JButton btnVerPacientes;
     // End of variables declaration//GEN-END:variables

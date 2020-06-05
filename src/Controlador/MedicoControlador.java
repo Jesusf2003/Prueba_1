@@ -11,9 +11,21 @@ public class MedicoControlador {
     Medicodao dao = new Medicodao();
     ArrayList<MedicoModelo> listaMedico = new ArrayList<>();
     
+    //Metodo para agregar
     public boolean agregarMedico(String nombre, String apellido, String direc, String fecha_nac, String dni, String cell, String espec, String sexo){
         try {
             dao.agregarMedico(new MedicoModelo(0, nombre, apellido, direc, fecha_nac, dni, cell, espec, sexo));
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error en el controlador de agregar Medico");
+            return false;
+        }
+    }
+    
+    //Metodo para actualizar
+    public boolean actualizarMedico(Integer id,String nombre, String apellido, String direc, String fecha_nac, String dni, String cell, String espec, String sexo){
+        try {
+            dao.agregarMedico(new MedicoModelo(id, nombre, apellido, direc, fecha_nac, dni, cell, espec, sexo));
             return true;
         } catch (SQLException e) {
             System.err.println("Error en el controlador de agregar Medico");
