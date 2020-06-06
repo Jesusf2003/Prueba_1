@@ -14,8 +14,8 @@ public class MedicoControlador {
     //Metodo para agregar
     public boolean agregarMedico(String nombre, String apellido, String direc, String fecha_nac, String dni, String cell, String espec, String sexo){
         try {
-            dao.agregarMedico(new MedicoModelo(0, nombre, apellido, direc, fecha_nac, dni, cell, espec, sexo));
-            return true;
+            boolean esCorrecto = dao.agregarMedico(new MedicoModelo(0, nombre, apellido, direc, fecha_nac, dni, cell, espec, sexo));
+            return esCorrecto;
         } catch (SQLException e) {
             System.err.println("Error en el controlador de agregar Medico");
             return false;
@@ -25,10 +25,20 @@ public class MedicoControlador {
     //Metodo para actualizar
     public boolean actualizarMedico(Integer id,String nombre, String apellido, String direc, String fecha_nac, String dni, String cell, String espec, String sexo){
         try {
-            dao.agregarMedico(new MedicoModelo(id, nombre, apellido, direc, fecha_nac, dni, cell, espec, sexo));
+            dao.actualizarMedico(new MedicoModelo(id, nombre, apellido, direc, fecha_nac, dni, cell, espec, sexo));
             return true;
         } catch (SQLException e) {
             System.err.println("Error en el controlador de agregar Medico");
+            return false;
+        }
+    }
+    
+    public boolean inactivarMedico(Integer id){
+        try {
+            dao.inactivarMedico(id);
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error en el controlador de inactivar Medico");
             return false;
         }
     }
@@ -53,9 +63,13 @@ public class MedicoControlador {
             }
             return modelo;
         } catch (Exception e) {
-            System.err.println("Error al listar pacientes");
+            System.err.println("Error al listar médicos");
             return null;
         }
         
+    }
+
+    public boolean actualizarMedico(String nombre, String apellido, String direc, String fecha_nac, String dni, String cell, String espec, String genero) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

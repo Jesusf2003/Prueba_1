@@ -12,12 +12,30 @@ public class Consultadao extends Conexion{
     public void agregarConsulta(ConsultaModelo consulta) throws SQLException{
         try {
             this.conexion();
-            String sql = "insert into consulta values(null,?, ?, str_to_date(?,'%d/%m/%Y'), ?)";
+            String sql = "insert into consulta values(null,?, ?, str_to_date(?,'%d/%m/%Y'), ?), DESCRIPCION=?";
             PreparedStatement ps = this.getCn().prepareStatement(sql);
             ps.setInt(1, consulta.getId_medico());
             ps.setInt(2, consulta.getId_paciente());
             ps.setString(3, consulta.getFecha_consulta());
             ps.setString(4, consulta.getDescripcion());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error al agregar consulta: "+ e.getMessage());
+        } finally{
+            this.desconectar();
+        }
+    }
+    
+    public void actualizarcConsulta(ConsultaModelo consulta) throws SQLException{
+        try {
+            this.conexion();
+            String sql = "UPDATE CONSULTA  SET ID=?, ID_MEDICO=?, ID_PACIENTE=?, FECHA_CONSULTA=str_to_date(?,'%d/%m/%Y') WHERE ID =?";
+            PreparedStatement ps = this.getCn().prepareStatement(sql);
+            ps.setInt(1, consulta.getId_medico());
+            ps.setInt(2, consulta.getId_paciente());
+            ps.setString(3, consulta.getFecha_consulta());
+            ps.setString(4, consulta.getDescripcion());
+            ps.setInt(5, consulta.getId_consulta());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Ocurrió un error al agregar consulta: "+ e.getMessage());

@@ -88,10 +88,10 @@ public class DlgVistaMedico extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(srcMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 1132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(srcMedico)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(897, 897, 897)
                         .addComponent(btnNuevoMedico)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
@@ -103,8 +103,8 @@ public class DlgVistaMedico extends javax.swing.JDialog {
                     .addComponent(lblTitulo)
                     .addComponent(btnNuevoMedico))
                 .addGap(18, 18, 18)
-                .addComponent(srcMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(srcMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,7 +117,21 @@ public class DlgVistaMedico extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNuevoMedicoActionPerformed
 
     private void tblMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMedicoMouseClicked
-        System.out.println("Hiciste un click en la tabla");
+        int fila = tblMedico.getSelectedRow();
+        
+        DlgeditarMedico dlgeditarmedico = new DlgeditarMedico(parentFrame, true);
+        dlgeditarmedico.id = tblMedico.getModel().getValueAt(fila, 0).toString();
+        dlgeditarmedico.nombre = tblMedico.getModel().getValueAt(fila, 1).toString();
+        dlgeditarmedico.apellido = tblMedico.getModel().getValueAt(fila, 2).toString();
+        dlgeditarmedico.direccion = tblMedico.getModel().getValueAt(fila, 3).toString();
+        dlgeditarmedico.fecha_nac = tblMedico.getModel().getValueAt(fila, 4).toString();
+        dlgeditarmedico.dni = tblMedico.getModel().getValueAt(fila, 5).toString();
+        dlgeditarmedico.celular = tblMedico.getModel().getValueAt(fila, 6).toString();
+        dlgeditarmedico.especialidad = tblMedico.getModel().getValueAt(fila, 7).toString();
+        dlgeditarmedico.sexo = tblMedico.getModel().getValueAt(fila, 8).toString();
+        
+        dlgeditarmedico.setVisible(true);
+        cargarListaMedico();
     }//GEN-LAST:event_tblMedicoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

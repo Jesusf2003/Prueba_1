@@ -66,6 +66,11 @@ public class DlgVistaConsulta extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblConsultaMouseClicked(evt);
+            }
+        });
         srcConsulta.setViewportView(tblConsulta);
 
         btnNuevaConsulta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -114,6 +119,21 @@ public class DlgVistaConsulta extends javax.swing.JDialog {
         dlgnuevaconsulta.setVisible(true);
         cargarListaConsulta();
     }//GEN-LAST:event_btnNuevaConsultaActionPerformed
+    
+    //Método para abrir la ventana editar consulta
+    private void tblConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultaMouseClicked
+        int filaSeleccionada = tblConsulta.getSelectedRow();
+        
+        DlgeditarConsulta dlgeditarconsulta = new DlgeditarConsulta(parentFrame, true);
+        dlgeditarconsulta.idConsulta = tblConsulta.getModel().getValueAt(filaSeleccionada, 0).toString();
+        dlgeditarconsulta.idMedico = tblConsulta.getModel().getValueAt(filaSeleccionada, 1).toString();
+        dlgeditarconsulta.idPaciente = tblConsulta.getModel().getValueAt(filaSeleccionada, 2).toString();
+        dlgeditarconsulta.fechaConsulta = tblConsulta.getModel().getValueAt(filaSeleccionada, 3).toString();
+        dlgeditarconsulta.descripcion = tblConsulta.getModel().getValueAt(filaSeleccionada, 4).toString();
+        
+        dlgeditarconsulta.setVisible(true);
+        cargarListaConsulta();
+    }//GEN-LAST:event_tblConsultaMouseClicked
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNuevaConsulta;

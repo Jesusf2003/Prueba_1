@@ -15,14 +15,31 @@ import javax.swing.JOptionPane;
 public class DlgeditarMedico extends javax.swing.JDialog {
     
     MedicoControlador controlador = new MedicoControlador();
+    String id;
+    String nombre;
+    String apellido;
+    String direccion;
+    String fecha_nac;
+    String dni;
+    String celular;
+    String especialidad;
+    String sexo;
 
     /**
      * Creates new form DlgeditarMedico
      * @param parent
+     * @param modal
      */
     public DlgeditarMedico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        editarComboGenero();
+    }
+    
+    public void editarComboGenero(){
+        cbxEditargenero.addItem("Masculino");
+        cbxEditargenero.addItem("Femenino");
     }
 
     /**
@@ -50,15 +67,21 @@ public class DlgeditarMedico extends javax.swing.JDialog {
         lblEspecialidadMedico = new javax.swing.JLabel();
         txtEspecialidadMedico = new javax.swing.JTextField();
         lblSexoMedico = new javax.swing.JLabel();
-        cbxGenero = new javax.swing.JComboBox<>();
         btnCancelar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
         lbleditaridmedico = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtIdMedico = new javax.swing.JTextField();
+        btnActualizarMedico = new javax.swing.JButton();
+        cbxEditargenero = new javax.swing.JComboBox<>();
+        btnInactivar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        lblTituloMedico.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblTituloMedico.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         lblTituloMedico.setText("Editar Médico");
 
         lblNombreMedico.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
@@ -99,12 +122,6 @@ public class DlgeditarMedico extends javax.swing.JDialog {
         lblSexoMedico.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         lblSexoMedico.setText("Género:");
 
-        cbxGenero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxGeneroActionPerformed(evt);
-            }
-        });
-
         btnCancelar.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,16 +130,26 @@ public class DlgeditarMedico extends javax.swing.JDialog {
             }
         });
 
-        btnGuardar.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        lbleditaridmedico.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        lbleditaridmedico.setText("ID:");
+
+        btnActualizarMedico.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        btnActualizarMedico.setText("Actualizar");
+        btnActualizarMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnActualizarMedicoActionPerformed(evt);
             }
         });
 
-        lbleditaridmedico.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        lbleditaridmedico.setText("ID:");
+        cbxEditargenero.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
+        btnInactivar.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        btnInactivar.setText("Inactivar");
+        btnInactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInactivarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,51 +157,52 @@ public class DlgeditarMedico extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnCancelar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnGuardar))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEspecialidadMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEspecialidadMedico))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCelularMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCelularMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDireccionMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDireccionMedico))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblApellidoMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtApellidoMedico))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNombreMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTituloMedico)
-                                .addGap(71, 71, 71)
-                                .addComponent(lbleditaridmedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDniMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDniMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFechaNacimientoMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFechaNacimientoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblEspecialidadMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEspecialidadMedico))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblCelularMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCelularMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblDireccionMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDireccionMedico))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblApellidoMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtApellidoMedico))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblNombreMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblTituloMedico)
+                        .addGap(71, 71, 71)
+                        .addComponent(lbleditaridmedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblDniMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDniMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblFechaNacimientoMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFechaNacimientoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnInactivar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizarMedico)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblSexoMedico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbxEditargenero, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -184,7 +212,7 @@ public class DlgeditarMedico extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTituloMedico)
                     .addComponent(lbleditaridmedico)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombreMedico)
@@ -213,37 +241,33 @@ public class DlgeditarMedico extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEspecialidadMedico)
                     .addComponent(txtEspecialidadMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblSexoMedico)
-                    .addComponent(cbxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxEditargenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnActualizarMedico)
+                    .addComponent(btnInactivar))
                 .addGap(38, 38, 38))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbxGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGeneroActionPerformed
-
-    }//GEN-LAST:event_cbxGeneroActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnActualizarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarMedicoActionPerformed
         String genero = "";
-        if(cbxGenero.getSelectedItem().equals("Masculino")){
+        if(cbxEditargenero.getSelectedItem().equals("Masculino")){
             genero = "M";
         }else{
             genero = "F";
         }
-
         System.out.println("Genero: "+ genero);
         String nombre = txtNombreMedico.getText();
         String apellido = txtApellidoMedico.getText();
@@ -252,63 +276,51 @@ public class DlgeditarMedico extends javax.swing.JDialog {
         String dni = txtDniMedico.getText();
         String cell = txtCelularMedico.getText();
         String espec = txtEspecialidadMedico.getText();
-        boolean esCorrecto = controlador.agregarMedico(nombre, apellido, direc, fecha_nac, dni, cell, espec, genero);
+        boolean esCorrecto = controlador.actualizarMedico(0, nombre, apellido, direc, fecha_nac, dni, cell, espec, genero);
         if (esCorrecto) {
-            JOptionPane.showMessageDialog(null, "Se agregó el Paciente correctamente", "Mensaje del sistema", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se agregó el Médico correctamente", "Mensaje del sistema", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
             this.dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Se agregó el medico correctamente", "Mensaje del sistema", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se agregó el Médico correctamente", "Mensaje del sistema", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnGuardarActionPerformed
+        String seleccion = (String)cbxEditargenero.getSelectedItem();
+        int indice = cbxEditargenero.getSelectedIndex();
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgeditarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgeditarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgeditarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgeditarMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        System.out.println("Selección: "+ seleccion);
+        System.out.println("Indice: "+ indice);
+    }//GEN-LAST:event_btnActualizarMedicoActionPerformed
+
+    private void btnInactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInactivarActionPerformed
+        int id = Integer.parseInt(txtIdMedico.getText());
+        boolean esCorrecto = controlador.inactivarMedico(id);
+        if(esCorrecto){
+            JOptionPane.showMessageDialog(null, "Se inactivó este Médico", "Mensaje del sistema", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al inactivar Médico", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btnInactivarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlgeditarMedico dialog = new DlgeditarMedico(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        txtIdMedico.setText(id);
+        txtNombreMedico.setText(nombre);
+        txtApellidoMedico.setText(apellido);
+        txtDireccionMedico.setText(direccion);
+        txtFechaNacimientoMedico.setText(fecha_nac);
+        txtDniMedico.setText(dni);
+        txtCelularMedico.setText(celular);
+        txtEspecialidadMedico.setText(especialidad);
+        
+    }//GEN-LAST:event_formWindowOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarMedico;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> cbxGenero;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton btnInactivar;
+    private javax.swing.JComboBox<String> cbxEditargenero;
     private javax.swing.JLabel lblApellidoMedico;
     private javax.swing.JLabel lblCelularMedico;
     private javax.swing.JLabel lblDireccionMedico;
@@ -325,6 +337,7 @@ public class DlgeditarMedico extends javax.swing.JDialog {
     private javax.swing.JTextField txtDniMedico;
     private javax.swing.JTextField txtEspecialidadMedico;
     private javax.swing.JTextField txtFechaNacimientoMedico;
+    private javax.swing.JTextField txtIdMedico;
     private javax.swing.JTextField txtNombreMedico;
     // End of variables declaration//GEN-END:variables
 }

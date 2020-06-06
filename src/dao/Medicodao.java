@@ -2,6 +2,7 @@ package dao;
 
 //Concectado con base de datos
 
+import Modelo.ConsultaModelo;
 import Modelo.MedicoModelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +12,10 @@ import java.util.ArrayList;
 public class Medicodao extends Conexion{
     
     //Metodo para agregar Medicos
-    public void agregarMedico(MedicoModelo medico) throws SQLException{
+    public boolean agregarMedico(MedicoModelo medico) throws SQLException{
         try {
         this.conexion();
-        String sql = "insert into medico values(null, ?, ?, ?, str_to_date(?, '%d/%m/%Y'), ?, ?, ?, ?)";
+        String sql = "insert into medico values(null, ?, ?, ?, str_to_date(?, '%d/%m/%Y'), ?, ?, ?, ?, 'A')";
         PreparedStatement ps = this.getCn().prepareStatement(sql);
         ps.setString(1, medico.getNombre_med());
         ps.setString(2, medico.getApellido_med());
@@ -25,18 +26,20 @@ public class Medicodao extends Conexion{
         ps.setString(7, medico.getEspecialidad());
         ps.setString(8, medico.getSexo_med());
         ps.executeUpdate();
+        return true;
         } catch (SQLException e) {
-            System.err.println("Ocurrió un error al agregar paciente: "+ e.getMessage());
+            System.err.println("Ocurrió un error al agregar médico: "+ e.getMessage());
+            return false;
         }finally{
             this.desconectar();
         }
     }
     
     //Metodo para actualizar lista
-    public void actualizarMedico(MedicoModelo medico) throws SQLException{
+    public boolean actualizarMedico(MedicoModelo medico) throws SQLException{
         try {
         this.conexion();
-        String sql = "UPDATE MEDICO SET NOMBRE=?, APELLIDO=?, DIRECCION=?, FECHA_NAC=str_to_date(?, '%d/%m/%Y'), DNI=?, ESPECIALIDAD=?, SEXO=? WHERE ID=?";
+        String sql = "UPDATE MEDICO SET NOMBRE=?, APELLIDO=?, DIRECCION=?, FECHA_NAC=str_to_date(?, '%d/%m/%Y'), DNI=?,CELULAR=?, ESPECIALIDAD=?, SEXO=? WHERE ID=?";
         PreparedStatement ps = this.getCn().prepareStatement(sql);
         ps.setString(1, medico.getNombre_med());
         ps.setString(2, medico.getApellido_med());
@@ -46,11 +49,29 @@ public class Medicodao extends Conexion{
         ps.setString(6, medico.getCelular_med());
         ps.setString(7, medico.getEspecialidad());
         ps.setString(8, medico.getSexo_med());
-        ps.setInt(7, medico.getId());
+        ps.setInt(9, medico.getId());
         ps.executeUpdate();
+        return true;
         } catch (SQLException e) {
             System.err.println("Ocurrió un error al agregar paciente: "+ e.getMessage());
+            return false;
         }finally{
+            this.desconectar();
+        }
+    }
+    
+    public boolean inactivarMedico(Integer id) throws SQLException{
+        try {
+            this.conexion();
+            String sql = "UPDATE MEDICO SET  ESTADO='I' where id=?";
+            PreparedStatement ps = this.getCn().prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error al inactivar el medico: "+ e.getMessage());
+            return false;
+        } finally{
             this.desconectar();
         }
     }
@@ -61,7 +82,7 @@ public class Medicodao extends Conexion{
         ResultSet rs;
         ArrayList<MedicoModelo> lista;
         try {
-            String sql = "SELECT * FROM MEDICO";
+            String sql = "SELECT * FROM MEDICO where ESTADO='A'";
             PreparedStatement ps = this.getCn().prepareStatement(sql);
             rs = ps.executeQuery();
             lista = new ArrayList<>();
