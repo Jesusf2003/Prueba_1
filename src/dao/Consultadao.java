@@ -29,7 +29,7 @@ public class Consultadao extends Conexion{
     public void actualizarcConsulta(ConsultaModelo consulta) throws SQLException{
         try {
             this.conexion();
-            String sql = "UPDATE CONSULTA  SET ID=?, ID_MEDICO=?, ID_PACIENTE=?, FECHA_CONSULTA=str_to_date(?,'%d/%m/%Y') WHERE ID =?";
+            String sql = "UPDATE CONSULTA  SET ID_MEDICO=?, ID_PACIENTE=?, FECHA_CONSULTA=str_to_date(?,'%d/%m/%Y'), DESCRIPCION=? WHERE ID =?";
             PreparedStatement ps = this.getCn().prepareStatement(sql);
             ps.setInt(1, consulta.getId_medico());
             ps.setInt(2, consulta.getId_paciente());
@@ -38,7 +38,7 @@ public class Consultadao extends Conexion{
             ps.setInt(5, consulta.getId_consulta());
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Ocurrió un error al agregar consulta: "+ e.getMessage());
+            System.err.println("Ocurrió un error al actualizar consulta: "+ e.getMessage());
         } finally{
             this.desconectar();
         }
@@ -51,7 +51,7 @@ public class Consultadao extends Conexion{
         ArrayList<ConsultaModelo> lista;
         try {
             //Para ver todos los registros Select * From (nombre de tabla)
-            String sql = "SELECT ID, ID_MEDICO, ID_PACIENTE, FECHA_CONSULTA, DESCRIPCION FROM CONSULTA";
+            String sql = "SELECT ID, ID_MEDICO, ID_PACIENTE, date_format(FECHA_CONSULTA, '%d/%m/%Y') as FECHA_CONSULTA, DESCRIPCION FROM CONSULTA";
             PreparedStatement ps = this.getCn().prepareStatement(sql);
             rs = ps.executeQuery();
             lista = new ArrayList<>();

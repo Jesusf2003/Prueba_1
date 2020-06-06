@@ -7,11 +7,13 @@ import java.sql.SQLException;
 public class UsuarioControlador {
     
     Usuariodao dao = new Usuariodao();
+    public static UsuarioModelo usuariologueado;
     
     public boolean iniciarSesion(String email, String contra){
         UsuarioModelo usuario = new UsuarioModelo();
         try {
             usuario = dao.IniciarSesion(email, contra);
+            usuariologueado = usuario;
             return usuario != null;
         } catch (SQLException e) {
             System.err.println("Ocurrio un error en el controlador de  iniciar sesión: "+ e.getMessage());

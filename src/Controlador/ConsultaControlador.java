@@ -23,7 +23,7 @@ public class ConsultaControlador {
     
     public boolean actualizarConsulta(int id, int id_medico, int id_paciente, String fecha, String descripcion){
         try {
-            dao.agregarConsulta(new ConsultaModelo(id, id_medico, id_paciente, fecha, descripcion));
+            dao.actualizarcConsulta(new ConsultaModelo(id, id_medico, id_paciente, fecha, descripcion));
             return true;
         } catch (SQLException e) {
             System.err.println("Ocurrió un error en el controlador consulta: ");
@@ -50,33 +50,5 @@ public class ConsultaControlador {
             System.err.println("Error al listar consulta");
             return null ;
         }
-    }
-
-    public void agregarConsulta(int SOMEBITS, String paciente, String fecha, String descripcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void agregarConsulta(String medico, String paciente, String fecha, String descripcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void agregarConsulta(String consulta, String medico, String paciente, String fecha, String descripcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean actualizarConsulta(int parseInt, int parseInt0, String fecha, String descripcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean actualizarConsulta(String idConsulta, int ALLBITS, String idMedico, String descripcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean actualizarConsulta(String idConsulta, String idMedico, String idPaciente, String descripcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean actualizarConsulta(String idConsulta, String idMedico, String idPaciente, String fechaConsulta, String descripcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

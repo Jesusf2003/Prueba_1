@@ -6,6 +6,7 @@
 package Vista;
 
 import Controlador.UsuarioControlador;
+import Modelo.UsuarioModelo;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,12 +16,14 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
     
     UsuarioControlador controlador = new UsuarioControlador();
+    
 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        lblMensaje.setText("");
         this.setLocationRelativeTo(null);
     }
 
@@ -39,6 +42,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtContrasena = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
+        lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Iniciar Sesion VistaPrevia");
@@ -64,6 +68,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        lblMensaje.setBackground(new java.awt.Color(255, 0, 0));
+        lblMensaje.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        lblMensaje.setForeground(new java.awt.Color(255, 51, 51));
+        lblMensaje.setText("Mensaje");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,6 +80,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -93,9 +103,11 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(18, 18, 18)
+                .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addComponent(btnIniciarSesion)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
 
         pack();
@@ -109,7 +121,8 @@ public class Login extends javax.swing.JFrame {
             MenúPrincipal menu = new MenúPrincipal();
             menu.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos", "Mensaje del sistema: ", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos", "Mensaje del sistema: ", JOptionPane.INFORMATION_MESSAGE);
+            lblMensaje.setText("****Usuario y/o contraseña incorrectos****");
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
@@ -153,6 +166,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblMensaje;
     private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables

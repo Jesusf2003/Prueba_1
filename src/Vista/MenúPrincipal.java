@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Controlador.UsuarioControlador;
+
 /**
  *
  * @author FernandoCanales
@@ -31,8 +33,15 @@ public class MenúPrincipal extends javax.swing.JFrame {
         btnVerPacientes = new javax.swing.JButton();
         btnVerMedico = new javax.swing.JButton();
         btnVerConsultas = new javax.swing.JButton();
+        lblNombres = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnVerPacientes.setText("Ver Pacientes");
         btnVerPacientes.addActionListener(new java.awt.event.ActionListener() {
@@ -55,28 +64,45 @@ public class MenúPrincipal extends javax.swing.JFrame {
             }
         });
 
+        lblNombres.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        lblNombres.setText("Nombres");
+
+        lblEmail.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        lblEmail.setText("Email");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnVerPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                    .addComponent(btnVerMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVerConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnVerPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVerMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVerConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEmail)
+                            .addComponent(lblNombres))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(lblNombres)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnVerPacientes)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerMedico)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerConsultas)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -96,6 +122,11 @@ public class MenúPrincipal extends javax.swing.JFrame {
         DlgVistaConsulta dlgvistaconsulta = new DlgVistaConsulta(this, true);
         dlgvistaconsulta.setVisible(true);
     }//GEN-LAST:event_btnVerConsultasActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        lblNombres.setText(UsuarioControlador.usuariologueado.getNombre() +" "+ UsuarioControlador.usuariologueado.getApellido());
+        lblEmail.setText(UsuarioControlador.usuariologueado.getEmail());
+    }//GEN-LAST:event_formWindowOpened
 
        /**
      * @param args the command line arguments
@@ -136,5 +167,7 @@ public class MenúPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnVerConsultas;
     private javax.swing.JButton btnVerMedico;
     private javax.swing.JButton btnVerPacientes;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblNombres;
     // End of variables declaration//GEN-END:variables
 }

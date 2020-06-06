@@ -233,7 +233,7 @@ public class DlgeditarConsulta extends javax.swing.JDialog {
         String idPaciente = txtidpaciente.getText();
         String fechaConsulta = txtfechaconsulta.getText();
         String descripcion = txtDescripcion.getText();
-        boolean esCorrecto = controlador.actualizarConsulta(idConsulta, idMedico, idPaciente, fechaConsulta, descripcion);
+        boolean esCorrecto = controlador.actualizarConsulta(Integer.parseInt(idConsulta), Integer.parseInt(idMedico), Integer.parseInt(idPaciente), fechaConsulta, descripcion);
         if (esCorrecto) {
             JOptionPane.showMessageDialog(null, "Se actualizó la consulta correctamente", "Mensaje del sistema", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
